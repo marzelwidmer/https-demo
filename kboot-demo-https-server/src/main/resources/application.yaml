@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: kboot-https-demo-server
+
+server:
+  ssl:
+      enabled: false
+      # The format used for the keystore. It could be set to JKS in case it is a JKS file
+      key-store-type: PKCS12
+      # The path to the keystore containing the certificate
+      key-store: classpath:keystore/keepcalm.p12
+      # The password used to generate the certificate
+      key-store-password: changeme
+      # The alias mapped to the certificate
+      key-alias: keepcalm
+  port: 8081
