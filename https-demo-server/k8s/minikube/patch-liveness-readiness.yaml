@@ -11,6 +11,7 @@ spec:
             httpGet:
               path: /actuator/info
               port: 8080
+#              scheme: HTTPS
             initialDelaySeconds: 120
             periodSeconds: 3
             timeoutSeconds: 5
@@ -20,3 +21,4 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8080
+#              scheme: HTTPS

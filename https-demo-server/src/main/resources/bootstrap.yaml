@@ -1,12 +1,6 @@
 spring:
   cloud:
     kubernetes:
-      config:
-        paths: /config/application.yaml
-      reload:
-        enabled: true
-        mode: polling
-        period: 5000
       discovery:
         enabled: true
       ribbon:
