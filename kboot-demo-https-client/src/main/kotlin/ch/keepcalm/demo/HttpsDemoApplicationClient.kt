@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import reactor.netty.http.client.HttpClientRequest
-import java.time.Duration
 
 @SpringBootApplication
-class HttpsDemoClientApplication
+class HttpsDemoApplicationClient
 
 fun main(args: Array<String>) {
-    runApplication<HttpsDemoClientApplication>(*args) {
+    runApplication<HttpsDemoApplicationClient>(*args) {
         addInitializers(
                 beans {
                     bean {
@@ -40,7 +38,7 @@ class CallRemoteHttpsServer(private val helloService: HelloService) {
 
 
 @Service
-class HelloService(@Value("\${api.endpoint}") private val apiEndpoint: String) {
+class HelloService(@Value("\${api.endpoint:http://localhost:8081}") private val apiEndpoint: String) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -53,9 +51,9 @@ class HelloService(@Value("\${api.endpoint}") private val apiEndpoint: String) {
                 .baseUrl(apiEndpoint)
                 .filter(logRequest(logger)).build()
                 .get()
-                .httpRequest {
-                    it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
-                }
+//                .httpRequest {
+//                    it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
+//                }
                 .retrieve()
                 .bodyToMono(String::class.java)
 
@@ -66,9 +64,9 @@ class HelloService(@Value("\${api.endpoint}") private val apiEndpoint: String) {
                 .bodyToMono(String::class.java)
 
     fun sayHiWithResponsetimeoutAndCodecLimits() = webClient.get()
-            .httpRequest {
-                it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
-            }
+//            .httpRequest {
+//                it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
+//            }
             .retrieve().bodyToMono(String::class.java)
 
 }

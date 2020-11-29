@@ -1,6 +1,10 @@
 spring:
+  profiles:
+    active: default
+    include: common
+
   application:
-    name: kboot-https-demo-client
+    name: https-demo-client
 
 logging:
   level:
@@ -8,13 +12,6 @@ logging:
     ch.keepcalm.demo: debug
   pattern:
     console: "%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} - %clr(${spring.application.name:-}){green} - %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n"
-
-# Management
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 
 api:
   endpoint: "https://localhost:8081"

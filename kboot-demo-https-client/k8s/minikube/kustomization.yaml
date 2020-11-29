@@ -12,6 +12,6 @@ patchesStrategicMerge:
 configMapGenerator:
   - files:
       - config-files/application.yaml
-    name: https-demo-server
+    name: https-demo-client
     options:
       disableNameSuffixHash: true
