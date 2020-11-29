@@ -66,3 +66,21 @@ mkdir src/main/resources/keystore
 cp ../keepcalm.p12 src/main/resources/keystore
 ```
 
+# Minikube Test Cluster
+Start Test Cluster with `6144 Memory` and `4 CPUs`.
+
+```
+minikube start --memory 6144 --cpus 4 -p test
+```
+
+## Addons for Test Cluster
+```
+minikube addons enable dashboard -p test
+minikube addons enable metrics-server -p test
+minikube addons enable ingress -p test
+minikube addons enable registry -p test
+```
+## List Addons from Test Cluster
+```
+minikube addons list -p test
+```
