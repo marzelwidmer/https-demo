@@ -15,7 +15,7 @@ So in case we already have a JKS keystore, we can convert it to PKCS12 format us
 
 `keytool -importkeystore -srckeystore keepcalm.jks -destkeystore keepcalm.p12 -deststoretype pkcs12`
 
-We'll have to provide the source keystore password and also set a new keystore password. The alias and keystore password will be needed later.
+We'll have to provide the source keystore password and set a new keystore password. The alias and keystore password will be needed later.
 
 ```
 keytool -genkeypair -alias keecalm -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keepcalm.p12 -validity 3650
@@ -30,15 +30,15 @@ keytool -importkeystore -srckeystore keepcalm.jks -destkeystore keepcalm.p12 -de
 http https://start.spring.io/starter.tgz \
     dependencies==actuator,web \
     description=="Demo project kboot" \
-    applicationName==KbootHttpsDemoApplication \
-    name==kboot-demo-https \
+    applicationName==HttpsDemoApplicationServer \
+    name==https-demo-server \
     groupId==ch.keepcalm \
-    artifactId==kboot-demo-https \
+    artifactId==https-demo-server \
     packageName==ch.keepcalm.demo \
     javaVersion==11 \
     language==kotlin \
     type==gradle-project \
-    baseDir==kboot-demo-https | tar -xzvf -
+    baseDir==https-demo-server | tar -xzvf -
 ```
 
 ```
@@ -53,7 +53,7 @@ http https://raw.githubusercontent.com/marzelwidmer/marzelwidmer.github.io/maste
 ```
 echo "spring:
   application:
-    name: kboot-demo-https" | > src/main/resources/application.yaml
+    name: https-demo-server" | > src/main/resources/application.yaml
 ```
 
 ```
@@ -102,7 +102,6 @@ k get po --field-selector status.phase=Running  -l 'appGroup in (https-demo)' -n
 ```
 skaffold run 
 ```
-
 
 
 # Port-Forwarding 
