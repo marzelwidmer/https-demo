@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: https-demo-server
+spec:
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - image: https-demo-server
+          name: https-demo-server
+          ports:
+            - containerPort: 8080
+              name: 8080-tcp
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
