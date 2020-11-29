@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta8
+kind: Config
+metadata:
+  name: https-demo-server
+build:
+  local:
+    push: false
+  artifacts:
+    - image: https-demo-server
+      sync:
+        manual:
+          - src: src/main/resources/**/*
+            dest: /workspace/BOOT-INF/classes
+            strip: src/main/resources/
+          - src: build/classes/**/*
+            dest: /workspace/BOOT-INF/classes
+            strip: build/classes/
+      buildpacks:
+        builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
+        dependencies:
+          paths:
+            - build.gradle.kts
+            - src/main/resources
+            - build/classes
+deploy:
+  kubeContext: test
+  kustomize:
+    paths:
+      - k8s/minikube

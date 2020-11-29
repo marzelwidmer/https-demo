@@ -3,6 +3,7 @@ kind: Kustomization
 
 commonLabels:
   app: https-demo-server
+  appGroup: https-demo
 
 resources:
   - deployment.yaml

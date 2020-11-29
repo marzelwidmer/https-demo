@@ -1,6 +1,10 @@
 spring:
+  profiles:
+    active: default
+    include: common
+
   application:
-    name: kboot-https-demo-server
+    name: https-demo-server
 
 server:
   ssl:
@@ -13,7 +17,6 @@ server:
       key-store-password: changeme
       # The alias mapped to the certificate
       key-alias: keepcalm
-  port: 8081
 
 
 # Logging
@@ -21,9 +24,3 @@ logging:
   pattern:
     console: "%clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} - %clr(${spring.application.name:-}){green} - %clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n"
 
-# Management
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"

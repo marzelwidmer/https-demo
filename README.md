@@ -84,3 +84,39 @@ minikube addons enable registry -p test
 ```
 minikube addons list -p test
 ```
+
+## Minikube List Profiles
+```
+minikube profile list
+```
+
+
+# Skaffold Deployment
+
+## Deploy Applicaton 
+```
+skaffold run 
+```
+
+## Development Mode with Skaffold
+```
+skaffold dev
+```
+
+# Port-Forwarding 
+## https-demo-client
+```
+kubectl port-forward service/https-demo-client 8080:80
+```
+
+
+## https-demo-server
+```
+k port-forward service/https-demo-server 8081:80
+```
+
+# Get K8s Resources for appGroup https-demo
+```
+k get sts,pvc,netpol,svc,po,configmaps,deployments,secrets -l 'appGroup in (https-demo)' -n default
+```
+
