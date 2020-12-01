@@ -34,9 +34,9 @@ fun main(args: Array<String>) {
 class CallRemoteHttpsServer(private val helloService: HelloService) {
     @GetMapping
     fun sayHello(): Mono<String> = helloService.sayHiWithResponsetimeoutAndDebugLog()
-    @GetMapping
+    @GetMapping(value = ["/v2"])
     fun sayJustHello() = helloService.sayJustHello()
-    @GetMapping
+    @GetMapping(value = ["/v3"])
     fun sayHiWithResponsetimeoutAndCodecLimits() = helloService.sayHiWithResponsetimeoutAndCodecLimits()
 }
 
