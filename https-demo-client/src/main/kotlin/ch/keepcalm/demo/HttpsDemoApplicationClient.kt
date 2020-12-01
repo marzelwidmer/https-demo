@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
+import reactor.netty.http.client.HttpClientRequest
+import java.time.Duration
 
 @SpringBootApplication
 class HttpsDemoApplicationClient
@@ -28,14 +30,11 @@ fun main(args: Array<String>) {
         )
     }
 }
-
 @RestController
 class CallRemoteHttpsServer(private val helloService: HelloService) {
-
     @GetMapping
     fun sayHello(): Mono<String> = helloService.sayHiWithResponsetimeoutAndDebugLog()
 }
-
 
 @Service
 class HelloService(@Value("\${api.endpoint:http://localhost:8081}") private val apiEndpoint: String) {
@@ -51,9 +50,9 @@ class HelloService(@Value("\${api.endpoint:http://localhost:8081}") private val 
                 .baseUrl(apiEndpoint)
                 .filter(logRequest(logger)).build()
                 .get()
-//                .httpRequest {
-//                    it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
-//                }
+                .httpRequest {
+                    it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
+                }
                 .retrieve()
                 .bodyToMono(String::class.java)
 
@@ -64,9 +63,9 @@ class HelloService(@Value("\${api.endpoint:http://localhost:8081}") private val 
                 .bodyToMono(String::class.java)
 
     fun sayHiWithResponsetimeoutAndCodecLimits() = webClient.get()
-//            .httpRequest {
-//                it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
-//            }
+            .httpRequest {
+                it.getNativeRequest<HttpClientRequest>().responseTimeout(Duration.ofSeconds(2))
+            }
             .retrieve().bodyToMono(String::class.java)
 
 }
